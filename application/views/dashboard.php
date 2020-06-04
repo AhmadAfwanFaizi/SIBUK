@@ -37,7 +37,7 @@
           </div>
           <div class="col-lg-3">
             <div class="panel panel-warning">
-              <div class="panel-heading">
+              <div class="panel-heading" style="height: 95px;">
                 <div class="row">
                   <div class="col-xs-6">
                     <i class="fa fa-money fa-5x"></i>

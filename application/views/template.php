@@ -15,6 +15,10 @@
     <!-- Add custom CSS here -->
     <link href="<?=base_url('assets/')?>css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="<?=base_url('assets/')?>font-awesome/css/font-awesome.min.css">
+
+    <!-- nambahin -->
+    <link href="<?=base_url('assets/')?>vendor/DataTables/datatables.min.css">
+    <script src="<?=base_url('assets/')?>js/jquery-1.10.2.js"></script>
   </head>
 
   <body>
@@ -38,7 +42,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?=base_url()?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="<?=base_url()?>"><i class="fa fa-edit"></i> Form</a></li>
+            <li><a href="<?=base_url('form')?>"><i class="fa fa-edit"></i> Form</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -65,8 +69,9 @@
     </div><!-- /#wrapper -->
 
     <!-- JavaScript -->
-    <script src="<?=base_url('assets/')?>js/jquery-1.10.2.js"></script>
+ 
     <script src="<?=base_url('assets/')?>js/bootstrap.js"></script>
+    <script src="<?=base_url('assets/')?>vendor/DataTables/datatables.min.js"></script>
 
   </body>
 </html>
