@@ -80,6 +80,7 @@
     $(document).ready(function(){
         $('.tablePencatatan').DataTable();
         $('.dataTables_filter').css('float', 'right');
+        
 
         simpan();
     });
@@ -94,6 +95,10 @@
                 data    : data,
                 dataType:  "JSON",
                 success : function(res) {
+                    if(res == 'true') {
+                        alert('berhasil');
+                        $('#formInputTamu').trigger('reset');
+                    }
                 }
             });
         });

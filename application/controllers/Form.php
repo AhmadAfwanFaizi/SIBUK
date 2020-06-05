@@ -3,10 +3,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Form extends CI_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('form_m');
+	}
+
 	public function index()
 	{
 		$this->template->load('template', 'form');
 	}
+
+	public function getDataTamu()
+    {
+        $list = $this->hrd_m->get_datatables_divisi();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no.".";
+            $row[] = $item->nama_divisi;
+            $row[] = '<button type="button" class="btn btn-sm btn-danger mr-1" onclick="modalHapus('.$item->id_divisi.')">Hapus</button>
+            <button type="button" class="btn btn-sm btn-warning mr-1" data-toggle="modal" data-target="#ubahDivisiModal" onclick="modalUbahDivisi('.$item->id_divisi.')">Uah</button>';
+            $data[] = $row;
+        }
+        $output = array(
+                    "draw" => @$_POST['draw'],
+                    "recordsTotal" => $this->hrd_m->count_all_divisi(),
+                    "recordsFiltered" => $this->hrd_m->count_filtered_divisi(),
+                    "data" => $data,
+                );
+        echo json_encode($output);
+    }
 
 	public function tambahTamu()
 	{
@@ -24,13 +53,13 @@ class Form extends CI_Controller {
 
 			$post = $this->input->post(null, TRUE);
 			$data = [
-				'nama' => htmlspecialchars($post['nama']),
-				'alamat' => htmlspecialchars($post['alamat']),
-				'uang' => htmlspecialchars($post['uang']),
-				'beras' => htmlspecialchars($post['beras']),
-				'catatan' => htmlspecialchars($post['catatan']),
-				'status' => 'BARU',
-				'dibuat' => date('Y-m-d H:i:s')
+				'nama'       => htmlspecialchars($post['nama']),
+				'alamat'     => htmlspecialchars($post['alamat']),
+				'uang'       => htmlspecialchars($post['uang']),
+				'beras'      => htmlspecialchars($post['beras']),
+				'keterangan' => htmlspecialchars($post['keterangan']),
+				'status'     => 'BARU',
+				'dibuat'     => date('Y-m-d H:i:s')
 			];
             $this->form_m->tambah($data);
             if($this->db->affected_rows() > 0) {
