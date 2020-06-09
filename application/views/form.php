@@ -54,23 +54,17 @@
         <table class="table table-hover tablePencatatan">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Uang</th>
                     <th>Beras</th>
                     <th>Keterangan</th>
-                    <th>Pilihan</th>
+                    <th>Waktu</th>
+                    <th style="width: 130px;">Pilihan</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>a</td>
-                    <td>a</td>
-                    <td>a</td>
-                    <td>a</td>
-                    <td>a</td>
-                    <td>a</td>
-                </tr>
             </tbody>
         </table>    
     </div>
@@ -78,7 +72,20 @@
 
 <script>
     $(document).ready(function(){
-        $('.tablePencatatan').DataTable();
+        $('.tablePencatatan').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                url: "<?php echo base_url('form/getDataTamu') ?>",
+                type:'POST',
+            },
+            "columnDefs" : [{
+                "targets" : [0],
+                "orderable" : false,
+            }]
+
+        });
+
         $('.dataTables_filter').css('float', 'right');
         
 

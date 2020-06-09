@@ -16,22 +16,27 @@ class Form extends CI_Controller {
 
 	public function getDataTamu()
     {
-        $list = $this->hrd_m->get_datatables_divisi();
+        $list = $this->form_m->get_datatables_tamu();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
             $no++;
             $row = array();
-            $row[] = $no.".";
-            $row[] = $item->nama_divisi;
-            $row[] = '<button type="button" class="btn btn-sm btn-danger mr-1" onclick="modalHapus('.$item->id_divisi.')">Hapus</button>
-            <button type="button" class="btn btn-sm btn-warning mr-1" data-toggle="modal" data-target="#ubahDivisiModal" onclick="modalUbahDivisi('.$item->id_divisi.')">Uah</button>';
+            $row[] = $no;
+            $row[] = $item->nama;
+            $row[] = $item->alamat;
+            $row[] = $item->uang;
+            $row[] = $item->beras;
+            $row[] = $item->keterangan;
+            $row[] = $item->dibuat;
+            $row[] = '<button type="button" class="btn btn-sm btn-danger mr-1" onclick="modalHapus()">Hapus</button>
+            <button type="button" class="btn btn-sm btn-warning mr-1" data-toggle="modal" data-target="#ubahDivisiModal" onclick="modalUbah()">Ubah</button>';
             $data[] = $row;
         }
         $output = array(
                     "draw" => @$_POST['draw'],
-                    "recordsTotal" => $this->hrd_m->count_all_divisi(),
-                    "recordsFiltered" => $this->hrd_m->count_filtered_divisi(),
+                    "recordsTotal" => $this->form_m->count_all_tamu(),
+                    "recordsFiltered" => $this->form_m->count_filtered_tamu(),
                     "data" => $data,
                 );
         echo json_encode($output);
