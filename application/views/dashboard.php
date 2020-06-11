@@ -16,7 +16,7 @@
                     <i class="fa fa-users fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">1000</p>
+                    <p class="announcement-heading"><?= $jumlah_tamu ?></p>
                     <p class="announcement-text">Jumlah tamu</p>
                   </div>
                 </div>
@@ -43,7 +43,7 @@
                     <i class="fa fa-money fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <div class="uang-heading">12.000.000</div>
+                    <div class="uang-heading"><?=$jumlah_uang?></div>
                     <p class="announcement-text">Jumlah uang</p>
                   </div>
                 </div>
@@ -97,7 +97,7 @@
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">56</p>
+                    <p class="announcement-heading"><?=$jumlah_keterangan?></p>
                     <p class="announcement-text">Keterangan </p>
                   </div>
                 </div>

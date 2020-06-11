@@ -8,9 +8,14 @@ class Form_m extends CI_Model {
         return $this->db->insert('tb_tamu', $data);
     }
 
+    public function ubah($data)
+    {
+        
+    }
+
     var $kolom_order_tamu = array(null, 'nama', 'alamat', 'uang', 'beras', 'keterangan', 'dibuat');
     var $search_tamu      = array('nama', 'alamat', 'uang', 'beras', 'keterangan');
-    var $order_t          = array('dibuat' => 'desc');
+    var $order_t          = array('dibuat' => 'asc');
 
     private function _get_datatables_tamu() {
         $this->db->select("*");
@@ -39,6 +44,7 @@ class Form_m extends CI_Model {
     }
     function get_datatables_tamu() {
         $this->_get_datatables_tamu();
+        $this->db->order_by('dibuat', 'desc');
         if(@$_POST['length'] != -1)
         $this->db->limit(@$_POST['length'], @$_POST['start']);
 

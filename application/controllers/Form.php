@@ -14,6 +14,12 @@ class Form extends CI_Controller {
 		$this->template->load('template', 'form');
 	}
 
+    public function getData()
+    {
+        $id = $this->input->post('id', true);
+        echo json_encode($this->db->get_where('tb_tamu', ['id' => $id])->row());
+    }
+
 	public function getDataTamu()
     {
         $list = $this->form_m->get_datatables_tamu();
@@ -22,15 +28,15 @@ class Form extends CI_Controller {
         foreach ($list as $item) {
             $no++;
             $row = array();
-            $row[] = $no;
+            $row[] = $no.'.';
             $row[] = $item->nama;
             $row[] = $item->alamat;
-            $row[] = $item->uang;
+            $row[] = rupiah(intval($item->uang));
             $row[] = $item->beras;
             $row[] = $item->keterangan;
-            $row[] = $item->dibuat;
-            $row[] = '<button type="button" class="btn btn-sm btn-danger mr-1" onclick="modalHapus()">Hapus</button>
-            <button type="button" class="btn btn-sm btn-warning mr-1" data-toggle="modal" data-target="#ubahDivisiModal" onclick="modalUbah()">Ubah</button>';
+            $row[] = substr($item->dibuat, 0, 10);
+            $row[] = substr($item->dibuat, 11,19);
+            $row[] = '<button type="button" class="btn btn-sm btn-warning mr-1" onclick="formUbah('.$item->id.')">Ubah</button>';
             $data[] = $row;
         }
         $output = array(
@@ -42,7 +48,7 @@ class Form extends CI_Controller {
         echo json_encode($output);
     }
 
-	public function tambahTamu()
+	public function tambah()
 	{
 		$this->form_validation->set_rules('nama', 'Nama Divisi', 'required');
 		$this->form_validation->set_rules('alamat', 'Nama Divisi', 'required');
@@ -60,18 +66,35 @@ class Form extends CI_Controller {
 			$data = [
 				'nama'       => htmlspecialchars($post['nama']),
 				'alamat'     => htmlspecialchars($post['alamat']),
-				'uang'       => htmlspecialchars($post['uang']),
+				'uang'       => str_replace('.', '', htmlspecialchars($post['uang'])),
 				'beras'      => htmlspecialchars($post['beras']),
-				'keterangan' => htmlspecialchars($post['keterangan']),
+				'keterangan' => $post['keterangan'] ? htmlspecialchars($post['keterangan']) : null,
 				'status'     => 'BARU',
 				'dibuat'     => date('Y-m-d H:i:s')
-			];
+            ];
             $this->form_m->tambah($data);
             if($this->db->affected_rows() > 0) {
-                echo json_encode('true');
+                echo json_encode([
+                    'res'  => 'true',
+                    'nama' => $post['nama']
+                ]);
             }
         }
-	}
+    }
+
+    public function ubah()
+    {
+        // $data = [
+        //     'id'      => $this->input->post('id', true),
+        //     'dihapus' => date('Y-m-d H:i:s')
+        // ];
+        // $this->form_m->hapus($data);
+        // if($this->db->affected_rows() > 0) {
+        //     echo json_encode('true');
+        // }
+    }
+    
+    
 
 
 // END CLASS	
