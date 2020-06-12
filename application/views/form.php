@@ -6,10 +6,9 @@
     </ol> -->
     
     <div class="alert" style="height: 80px">
-        <div class="alert alert-success alert-dismissable hide" id="alert">
+        <div class="hide " id="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <b class="nama"></b> berhasil ditambahkan.
-        </div>
+            <b class="nama"></b> <span class="pesan"></span>        </div>
     </div>
 
     </div>
@@ -19,12 +18,12 @@
     <form action="" method="POST" id="formInputTamu">
         <div class="col-lg-2">
             <label for="nama">Nama</label>
-            <input type="text" class="form-control" name="nama" id="nama" autofocus autocomplete="off">
+            <input type="text" class="form-control" name="nama" id="nama" autofocus autocomplete="off" required>
         </div>
         
         <div class="col-lg-2">
             <label for="alamat">Alamat</label>
-            <input type="text"  class="form-control" name="alamat" id="alamat" autocomplete>
+            <input type="text"  class="form-control" name="alamat" id="alamat" autocomplete required>
         </div>
 
         <div class="col-lg-2">
@@ -43,14 +42,14 @@
         </div>
 
         <div class="col-lg-2" style="margin-top: 22px">
-            <button type="button" class="tombol btn btn-success btnSimpan">simpan</button>
+            <button type="button" class="btn btn-success" id="tombolForm" onclick="tambah()">simpan</button>
         </div>
     </form>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <table class="table table-hover tablePencatatan">
+        <table class="table table-hover tablePencatatan table-responsive">
             <thead>
                 <tr>
                     <th>#</th>
@@ -73,14 +72,15 @@
 <script>
     $(document).ready(function(){
         $('.tablePencatatan').DataTable({
+            // "scrollX"   : true,
             "processing": true,
             "serverSide": true,
-            "ajax": {
+            "ajax"      : {
                 url: "<?php echo base_url('form/getDataTamu') ?>",
                 type:'POST',
             },
             "columnDefs" : [{
-                "targets" : [0],
+                "targets" : [0,7,8],
                 "orderable" : false,
             }]
 
@@ -88,8 +88,6 @@
 
         $('.dataTables_filter').css('float', 'right');
         
-
-        simpan();
     });
 
     function reloadTableTamu()
@@ -97,8 +95,7 @@
         $('.tablePencatatan').DataTable().ajax.reload();
     }
 
-    function simpan(){
-        $('.btnSimpan').click(function(){
+    function tambah(){
             var data = $('#formInputTamu').serialize();
 
             $.ajax({
@@ -110,19 +107,21 @@
                     if(res.res == 'true') {
                         $('#formInputTamu').trigger('reset');
                         reloadTableTamu();
-                        notif(res.nama);
+                        notif('success', res.nama, 'berhasil ditambah');
+                    } else {
+                        notif('warning', '', 'Nama / Alamat tidak boleh kosong')
                     }
                 }
             });
-        });
     }
 
     function formUbah(id)
     {
-        $('.tombol').removeClass('btn-success btnSimpan');
-        $('.tombol').addClass('btn-primary btnUbah');
-
-
+        $('#tombolForm').removeClass('btn-success');
+        $('#tombolForm').addClass('btn-primary');
+        $('#tombolForm').text('Ubah');
+        $('#tombolForm').attr('onclick', 'ubah()');
+        $('#formInputTamu').prepend('<input name="id" id="id" value="'+id+'" hidden>');
         $.ajax({
             url     : "<?= base_url('form/getData') ?>",
             type    : "POST",
@@ -134,14 +133,34 @@
                 $('#uang').val(res.uang);
                 $('#beras').val(res.beras);
                 $('#keterangan').val(res.keterangan);
-               
 
                 }
             });
     }
 
+    function ubah()
+    {
+        $('#tombolForm').removeClass('btn-primary');
+        $('#tombolForm').addClass('btn-success');
+        $('#tombolForm').text('Tambah');
+        $('#tombolForm').attr('onclick', 'tambah()');
+
+        var data = $('#formInputTamu').serialize();
+        $.ajax({
+            url     : "<?= base_url('form/ubah') ?>",
+            type    : "POST",
+            data    : data,
+            dataType: "JSON",
+            success : function(res) {
+                $('#formInputTamu').trigger('reset');
+                reloadTableTamu();
+                notif('success', res.nama, 'Berhasil diubah');
+            }
+        });
+    }
+
     var rupiah = document.getElementById('uang');
-		rupiah.addEventListener('keyup', function(e){
+		rupiah.addEventListener('keypress', function(e){
 			// tambahkan 'Rp.' pada saat form di ketik
 			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
 			rupiah.value = formatRupiah(this.value, '');
@@ -165,9 +184,26 @@
 			return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
 		}
 
-    function notif(param = null)
+    function notif(alert = null, data = null, pesan = null)
     {
-        $('.nama').text(param);
+        var jenis;
+        var cls = 'alert alert-dismissable ';
+        if(alert == 'success') {
+            jenis = cls+'alert-success';
+        } else if(alert == 'info') {
+            jenis = cls+'alert-info'
+        } else if(alert == 'warning') {
+            jenis = cls+'alert-warning'
+        } else if(alert == 'danger') {
+            jenis = cls+'alert-danger'
+        } else {
+            jenis = cls+'alert-success';
+        }
+
+        $('#alert').addClass(jenis);
+        $('.nama').text(data);
+        $('.pesan').text(pesan);
+
         $('#alert').fadeIn();
         $('#alert').removeClass('hide');
         setTimeout(function(){

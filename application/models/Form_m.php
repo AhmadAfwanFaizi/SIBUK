@@ -10,7 +10,7 @@ class Form_m extends CI_Model {
 
     public function ubah($data)
     {
-        
+        return $this->db->update('tb_tamu', $data, "id =".$data['id']);
     }
 
     var $kolom_order_tamu = array(null, 'nama', 'alamat', 'uang', 'beras', 'keterangan', 'dibuat');

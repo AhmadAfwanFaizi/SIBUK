@@ -50,8 +50,8 @@ class Form extends CI_Controller {
 
 	public function tambah()
 	{
-		$this->form_validation->set_rules('nama', 'Nama Divisi', 'required');
-		$this->form_validation->set_rules('alamat', 'Nama Divisi', 'required');
+		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_message('required', '{field} Tidak boleh kosong');
 
         if($this->form_validation->run() == FALSE) {
@@ -64,13 +64,13 @@ class Form extends CI_Controller {
 
 			$post = $this->input->post(null, TRUE);
 			$data = [
-				'nama'       => htmlspecialchars($post['nama']),
-				'alamat'     => htmlspecialchars($post['alamat']),
-				'uang'       => str_replace('.', '', htmlspecialchars($post['uang'])),
-				'beras'      => htmlspecialchars($post['beras']),
-				'keterangan' => $post['keterangan'] ? htmlspecialchars($post['keterangan']) : null,
-				'status'     => 'BARU',
-				'dibuat'     => date('Y-m-d H:i:s')
+                'nama'       => htmlspecialchars($post['nama']),
+                'alamat'     => htmlspecialchars($post['alamat']),
+                'uang'       => str_replace('.', '', htmlspecialchars($post['uang'])),
+                'beras'      => htmlspecialchars($post['beras']),
+                'keterangan' => $post['keterangan'] ? htmlspecialchars($post['keterangan']) : null,
+                'status'     => 'BARU',
+                'dibuat'     => date('Y-m-d H:i:s')
             ];
             $this->form_m->tambah($data);
             if($this->db->affected_rows() > 0) {
@@ -84,14 +84,38 @@ class Form extends CI_Controller {
 
     public function ubah()
     {
-        // $data = [
-        //     'id'      => $this->input->post('id', true),
-        //     'dihapus' => date('Y-m-d H:i:s')
-        // ];
-        // $this->form_m->hapus($data);
-        // if($this->db->affected_rows() > 0) {
-        //     echo json_encode('true');
-        // }
+       
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_message('required', '{field} Tidak boleh kosong');
+
+        if($this->form_validation->run() == FALSE) {
+            echo json_encode([
+				'nama'   => form_error('nama'),
+				'alamat' => form_error('alamat')
+				]);
+
+        } else {
+
+			$post = $this->input->post(null, TRUE);
+			$data = [
+                'id'         => htmlspecialchars($post['id']),
+				'nama'       => htmlspecialchars($post['nama']),
+				'alamat'     => htmlspecialchars($post['alamat']),
+				'uang'       => str_replace('.', '', htmlspecialchars($post['uang'])),
+				'beras'      => htmlspecialchars($post['beras']),
+				'keterangan' => $post['keterangan'] ? htmlspecialchars($post['keterangan']) : null,
+				'status'     => 'BARU',
+				'dibuat'     => date('Y-m-d H:i:s')
+            ];
+            $this->form_m->ubah($data);
+            if($this->db->affected_rows() > 0) {
+                echo json_encode([
+                    'res'  => 'true',
+                    'nama' => $post['nama']
+                ]);
+            }
+        }
     }
     
     
