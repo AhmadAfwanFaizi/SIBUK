@@ -11,15 +11,13 @@ class Sibuk extends CI_Controller {
 	public function index()
 	{
 		$data = [
-			'jumlah_tamu'       => $this->jumlah()->jumlah_tamu,
-			'jumlah_uang'       => rupiah($this->jumlah()->jumlah_uang),
-			'jumlah_beras'      => $this->jumlah()->jumlah_beras,
-			'jumlah_keterangan' => $this->jumlah()->jumlah_keterangan
+			'jumlah_tamu'       => $this->jumlah()->jumlah_tamu ? $this->jumlah()->jumlah_tamu : '0',
+			'jumlah_uang'       => rupiah($this->jumlah()->jumlah_uang) ? rupiah($this->jumlah()->jumlah_uang) : '0',
+			'jumlah_beras'      => $this->jumlah()->jumlah_beras ? $this->jumlah()->jumlah_beras : '0',
+			'jumlah_keterangan' => $this->jumlah()->jumlah_keterangan ? $this->jumlah()->jumlah_keterangan : '0',
 		];
-		
-		// var_dump($data);
-		// die;
 
+		
 		$this->template->load('template', 'dashboard', $data);
 	}
 

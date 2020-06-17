@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jun 2020 pada 01.35
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.1
+-- Host: localhost
+-- Generation Time: Jun 17, 2020 at 01:33 PM
+-- Server version: 5.7.30-0ubuntu0.16.04.1
+-- PHP Version: 7.1.32-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_tamu`
+-- Table structure for table `tb_tamu`
 --
 
 CREATE TABLE `tb_tamu` (
@@ -34,9 +32,9 @@ CREATE TABLE `tb_tamu` (
   `alamat` text NOT NULL,
   `uang` varchar(10) DEFAULT NULL,
   `beras` varchar(5) DEFAULT NULL,
-  `catatan` text DEFAULT NULL,
-  `status` text DEFAULT NULL,
-  `dibuat` datetime NOT NULL DEFAULT current_timestamp(),
+  `keterangan` text,
+  `status` text,
+  `dibuat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `diubah` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -45,22 +43,20 @@ CREATE TABLE `tb_tamu` (
 --
 
 --
--- Indeks untuk tabel `tb_tamu`
+-- Indexes for table `tb_tamu`
 --
 ALTER TABLE `tb_tamu`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_tamu`
+-- AUTO_INCREMENT for table `tb_tamu`
 --
 ALTER TABLE `tb_tamu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -37,7 +37,7 @@
           </div>
           <div class="col-lg-3">
             <div class="panel panel-warning">
-              <div class="panel-heading" style="height: 95px;">
+              <div class="panel-heading" style="height: 117px;">
                 <div class="row">
                   <div class="col-xs-6">
                     <i class="fa fa-money fa-5x"></i>
@@ -70,7 +70,7 @@
                     <i class="fa fa-suitcase fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">18</p>
+                    <p class="announcement-heading"><?=$jumlah_beras?></p>
                     <p class="announcement-text">Jumlah Beras</p>
                   </div>
                 </div>
@@ -91,7 +91,7 @@
           </div>
           <div class="col-lg-3">
             <div class="panel panel-success">
-              <div class="panel-heading">
+              <div class="panel-heading" style="height: 117px;">
                 <div class="row">
                   <div class="col-xs-6">
                     <i class="fa fa-comments fa-5x"></i>
