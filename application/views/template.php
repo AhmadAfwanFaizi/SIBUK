@@ -43,6 +43,7 @@
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?=base_url()?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="<?=base_url('form')?>"><i class="fa fa-edit"></i> Form</a></li>
+            <li><a href="<?=base_url('data')?>"><i class="fa fa-file"></i> Data</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -69,7 +70,50 @@
     </div><!-- /#wrapper -->
 
     <!-- JavaScript -->
- 
+
+
+<div class="modal fade" id="modalNotif" tabindex="-1" role="dialog" aria-labelledby="modalNotifLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+        <div class="alert alert-success" id="alert" style="margin-bottom: 0px;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+            <b class="nama"></b> <span class="pesan"></span>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function notif(alert = null, data = null, pesan = null)
+    {
+        var jenis;
+        var cls = 'alert alert-dismissable ';
+        if(alert == 'success') {
+            jenis = cls+'alert-success';
+        } else if(alert == 'info') {
+            jenis = cls+'alert-info'
+        } else if(alert == 'warning') {
+            jenis = cls+'alert-warning'
+        } else if(alert == 'danger') {
+            jenis = cls+'alert-danger'
+        } else {
+            jenis = cls+'alert-success';
+        }
+
+        $('#alert').addClass(jenis);
+        $('.nama').text(data);
+        $('.pesan').text(pesan);
+
+        $('#modalNotif').modal('show');
+        setTimeout(function(){
+            $('#modalNotif').modal('hide');
+        }, 1300)
+    }
+</script>
+
+
     <script src="<?=base_url('assets/')?>js/bootstrap.js"></script>
     <script src="<?=base_url('assets/')?>vendor/DataTables/datatables.min.js"></script>
 

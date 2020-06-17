@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-sm-12">
     <!-- <h1>Tables <small>Sort Your Data</small></h1>
     <ol class="breadcrumb">
         <li class="active"><i class="fa fa-edit"></i> form</li>
@@ -8,48 +8,49 @@
     <div class="alert" style="height: 80px">
         <div class="hide " id="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <b class="nama"></b> <span class="pesan"></span>        </div>
+            <b class="nama"></b> <span class="pesan"></span>
+        </div>
     </div>
-
     </div>
 </div>
 
+
 <div class="row" style="margin-bottom: 23px;">
     <form action="" method="POST" id="formInputTamu">
-        <div class="col-lg-2">
+        <div class="col-sm-2">
             <label for="nama">Nama</label>
             <input type="text" class="form-control" name="nama" id="nama" autofocus autocomplete="off" required>
         </div>
         
-        <div class="col-lg-2">
+        <div class="col-sm-2">
             <label for="alamat">Alamat</label>
             <input type="text"  class="form-control" name="alamat" id="alamat" autocomplete required>
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-sm-2">
             <label for="uang">Uang</label>
             <input type="text"  class="form-control" name="uang" id="uang">
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-sm-2">
             <label for="beras">Beras(Liter)</label>
             <input type="text"  class="form-control" name="beras" id="beras">
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-sm-2">
             <label for="keterangan">Keterangan</label>
             <input type="text"  class="form-control" name="keterangan" id="keterangan">
         </div>
 
-        <div class="col-lg-2" style="margin-top: 22px">
-            <button type="button" class="btn btn-success" id="tombolForm" onclick="tambah()">simpan</button>
+        <div class="col-sm-2" style="margin-top: 22px">
+            <button type="button" class="btn btn-success" id="tombolForm" onclick="tambah()">Tambah</button>
         </div>
     </form>
 </div>
 
 <div class="row">
-    <div class="col-lg-12">
-        <table class="table table-hover tablePencatatan table-responsive">
+    <div class="col-sm-12">
+        <table class="table table-responsive tablePencatatan">
             <thead>
                 <tr>
                     <th>#</th>
@@ -60,7 +61,7 @@
                     <th>Keterangan</th>
                     <th>Tanggal</th>
                     <th>Waktu</th>
-                    <th style="width: 130px;">Pilihan</th>
+                    <th style="width: 70px;">Pilihan</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,13 +77,37 @@
             "processing": true,
             "serverSide": true,
             "ajax"      : {
-                url: "<?php echo base_url('form/getDataTamu') ?>",
-                type:'POST',
+                url : "<?php echo base_url('form/getDataTamu') ?>",
+                type: 'POST',
             },
             "columnDefs" : [{
-                "targets" : [0,7,8],
-                "orderable" : false,
-            }]
+                "targets"  : [0,7,8],
+                "orderable": false,
+            }],
+            "language" : {
+            "decimal"       : "",
+            "emptyTable"    : "Tak ada data yang tersedia pada tabel ini",
+            "info"          : "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+            "infoEmpty"     : "Menanpilkan 0 hingga 0 dari 0 entri",
+            "infoFiltered"  : "(saring dari _MAX_ total entri)",
+            "infoPostFix"   : "",
+            "thousands"     : ",",
+            "lengthMenu"    : "Menampilkan _MENU_ entri",
+            "loadingRecords": "Memuat...",
+            "processing"    : "Memproses...",
+            "search"        : "Pencarian:",
+            "zeroRecords"   : "Tidak ditemukan data yang cocok ",
+            "paginate"      : {
+              "first"   : "Pertama",
+              "last"    : "Terakhir",
+              "next"    : "Selanjutnya",
+              "previous": "Sebelumnya"
+            },
+            "aria": {
+              "sortAscending" : ": aktifkan untuk mengurutkan kolom yang naik",
+              "sortDescending": ": aktifkan untuk mengurutkan kolom yang turun"
+            }
+          }
 
         });
 
@@ -184,31 +209,6 @@
 			return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
 		}
 
-    function notif(alert = null, data = null, pesan = null)
-    {
-        var jenis;
-        var cls = 'alert alert-dismissable ';
-        if(alert == 'success') {
-            jenis = cls+'alert-success';
-        } else if(alert == 'info') {
-            jenis = cls+'alert-info'
-        } else if(alert == 'warning') {
-            jenis = cls+'alert-warning'
-        } else if(alert == 'danger') {
-            jenis = cls+'alert-danger'
-        } else {
-            jenis = cls+'alert-success';
-        }
-
-        $('#alert').addClass(jenis);
-        $('.nama').text(data);
-        $('.pesan').text(pesan);
-
-        $('#alert').fadeIn();
-        $('#alert').removeClass('hide');
-        setTimeout(function(){
-        $('#alert').fadeOut(2000);
-      }, 1000);
-    }
+    
 
 </script>
